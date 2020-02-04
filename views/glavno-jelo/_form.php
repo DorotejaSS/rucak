@@ -12,11 +12,12 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'ime_jela')
-        ->dropDownList(
-            $model->glavnoJelo,           // Flat array ('id'=>'label')
-            ['prompt'=>'aaa']    // options
-        ); ?>
+    <?= $form->field($model, 'nesto')
+                ->dropDownList(
+                    $model,
+                    ['value' => 'ime_jela']
+
+                ); ?>
         
         <div class="form-group">
             <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

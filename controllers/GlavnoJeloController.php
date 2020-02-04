@@ -35,12 +35,14 @@ class GlavnoJeloController extends Controller
      */
     public function actionIndex()
     {
+        $model = new GlavnoJelo();
         $searchModel = new GlavnoJeloSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'model' => $model->glavnoJelo
         ]);
     }
 

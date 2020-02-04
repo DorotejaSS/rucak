@@ -42,7 +42,7 @@ AppAsset::register($this);
             ['label' => 'About', 'url' => ['/site/about']],
             ['label' => 'Contact', 'url' => ['/site/contact']],
             ['label' => 'Odredi Cenu', 'url' => ['/odredi-cenu/update?id=1']],
-            ['label' => 'Poruci Jelo', 'url' => ['/glavno-jelo/update']],
+            ['label' => 'Poruci Jelo', 'url' => ['/glavno-jelo/index']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
