@@ -9,6 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\Porudzbina;
 
 class SiteController extends Controller
 {
@@ -79,7 +80,10 @@ class SiteController extends Controller
         
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             if($this->checkPrivileges()){
+                $porudzbina = new Porudzbina();
                 return $this->render('supervisor');
+                //izlistavaju se porudzbine
+                // dd($porudzbina->getAll());
             } else {
                 return $this->goBack();
             }
@@ -93,7 +97,7 @@ class SiteController extends Controller
 
     public function checkPrivileges()
     {
-        $supervisor_identity = Yii::$app->user->identity ?? array();
+        $supervisor_identity = Yii::$app->user->identity ?? false;
 
         if ($supervisor_identity->id === 1 && $supervisor_identity->username === 'Supervisor') {
             return true;

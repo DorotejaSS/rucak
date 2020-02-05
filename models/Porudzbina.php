@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\models\User;
 
 /**
  * This is the model class for table "porudzbina".
@@ -130,7 +131,7 @@ class Porudzbina extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::class(), ['id_user' => 'id_user']);
+    //    dd(User::find()->all());
     }
 
     /**
@@ -156,5 +157,11 @@ class Porudzbina extends \yii\db\ActiveRecord
     public function getOdrediCenu()
     {
        return $this->hasOne(OdrediCenu::className(), ['trenutna_cena' => 'cena']);
+    }
+
+    public static function getAll()
+    {
+        // return Porudzbina::find()
+        // ->where(['user_id' => $this->getUser()]);
     }
 }
