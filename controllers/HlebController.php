@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\GlavnoJelo;
-use app\models\GlavnoJeloSearch;
+use app\models\Hleb;
+use app\models\HlebSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * GlavnoJeloController implements the CRUD actions for GlavnoJelo model.
+ * HlebController implements the CRUD actions for Hleb model.
  */
-class GlavnoJeloController extends Controller
+class HlebController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,12 +30,12 @@ class GlavnoJeloController extends Controller
     }
 
     /**
-     * Lists all GlavnoJelo models.
+     * Lists all Hleb models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new GlavnoJeloSearch();
+        $searchModel = new HlebSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class GlavnoJeloController extends Controller
     }
 
     /**
-     * Displays a single GlavnoJelo model.
+     * Displays a single Hleb model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,16 +58,16 @@ class GlavnoJeloController extends Controller
     }
 
     /**
-     * Creates a new GlavnoJelo model.
+     * Creates a new Hleb model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new GlavnoJelo();
+        $model = new Hleb();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_glavno_jelo]);
+            return $this->redirect(['view', 'id' => $model->id_hleb]);
         }
 
         return $this->render('create', [
@@ -76,7 +76,7 @@ class GlavnoJeloController extends Controller
     }
 
     /**
-     * Updates an existing GlavnoJelo model.
+     * Updates an existing Hleb model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -87,7 +87,7 @@ class GlavnoJeloController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_glavno_jelo]);
+            return $this->redirect(['view', 'id' => $model->id_hleb]);
         }
 
         return $this->render('update', [
@@ -96,7 +96,7 @@ class GlavnoJeloController extends Controller
     }
 
     /**
-     * Deletes an existing GlavnoJelo model.
+     * Deletes an existing Hleb model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -110,15 +110,15 @@ class GlavnoJeloController extends Controller
     }
 
     /**
-     * Finds the GlavnoJelo model based on its primary key value.
+     * Finds the Hleb model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return GlavnoJelo the loaded model
+     * @return Hleb the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = GlavnoJelo::findOne($id)) !== null) {
+        if (($model = Hleb::findOne($id)) !== null) {
             return $model;
         }
 

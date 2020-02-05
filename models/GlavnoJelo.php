@@ -66,12 +66,26 @@ class GlavnoJelo extends \yii\db\ActiveRecord
      * @return \yii\db\ActiveQuery
      */
     public function getPorudzbinas()
-    {   
-        return $this->hasMany(Porudzbina::className(), ['id_glavno_jelo' => 'id_glavno_jelo']);
+    {
+        return $this->hasOne(Porudzbina::className(), ['id_glavno_jelo' => 'id_glavno_jelo']);
     }
 
-    public function getGlavnoJelo()
+    public static function getAll()
     {
-      return GlavnoJelo::find()->all(); 
+        $date = date('Y-m-d');
+        $firstOfMonth = date("Y-m-01", strtotime($date));
+        $week = intval(date("W", strtotime($date))) - intval(date("W", strtotime($firstOfMonth)));
+    
+        $week_day = intval(date('N')) + 1;
+
+        return GlavnoJelo::find()
+        ->where([
+            'nedelja' => $week,
+            'dan' => $week_day,
+        ])
+        ->orWhere([
+            'nedelja' => 0
+        ])
+        ->all();
     }
 }

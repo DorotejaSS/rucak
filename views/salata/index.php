@@ -4,18 +4,18 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\GlavnoJeloSearch */
+/* @var $searchModel app\models\SalataSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Glavno Jelos';
+$this->title = 'Salatas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="glavno-jelo-index">
+<div class="salata-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Glavno Jelo', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Salata', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -26,10 +26,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id_glavno_jelo',
-            'ime_jela',
-            'nedelja',
-            'dan',
+            'id_salata',
+            'ime_salate',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
