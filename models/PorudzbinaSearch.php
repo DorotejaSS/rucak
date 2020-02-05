@@ -17,7 +17,7 @@ class PorudzbinaSearch extends Porudzbina
     public function rules()
     {
         return [
-            [['id_porudzbina', 'id_osoba', 'id_glavno_jelo', 'id_prilog', 'id_salata', 'id_hleb'], 'integer'],
+            [['id_porudzbina', 'id_user', 'id_glavno_jelo', 'id_prilog', 'id_salata', 'id_hleb'], 'integer'],
             [['cena'], 'number'],
             [['created_on'], 'safe'],
         ];
@@ -60,7 +60,7 @@ class PorudzbinaSearch extends Porudzbina
         // grid filtering conditions
         $query->andFilterWhere([
             'id_porudzbina' => $this->id_porudzbina,
-            'id_osoba' => $this->id_osoba,
+            'id_user' => $this->id_user,
             'id_glavno_jelo' => $this->id_glavno_jelo,
             'id_prilog' => $this->id_prilog,
             'id_salata' => $this->id_salata,

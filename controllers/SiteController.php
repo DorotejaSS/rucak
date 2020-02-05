@@ -76,14 +76,28 @@ class SiteController extends Controller
         }
 
         $model = new LoginForm();
+        
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            if($this->checkPrivileges()){
+                return $this->render('supervisor');
+            } else {
+                return $this->goBack();
+            }
         }
 
         $model->password = '';
         return $this->render('login', [
             'model' => $model,
         ]);
+    }
+
+    public function checkPrivileges()
+    {
+        $supervisor_identity = Yii::$app->user->identity ?? array();
+
+        if ($supervisor_identity->id === 1 && $supervisor_identity->username === 'Supervisor') {
+            return true;
+        }
     }
 
     /**

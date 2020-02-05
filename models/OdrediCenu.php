@@ -40,4 +40,9 @@ class OdrediCenu extends \yii\db\ActiveRecord
             'trenutna_cena' => 'Trenutna Cena',
         ];
     }
+
+    public static function getAll()
+    {
+        return OdrediCenu::find()->one();
+    }
 }

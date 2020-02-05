@@ -23,14 +23,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 'confirm' => 'Are you sure you want to delete this item?',
                 'method' => 'post',
             ],
-        ]) ?>
+            ]) ?>
     </p>
+
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             'id_porudzbina',
-            'id_osoba',
+            'id_user',
             'id_glavno_jelo',
             'id_prilog',
             'id_salata',

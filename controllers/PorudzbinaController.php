@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Porudzbina;
+use app\models\PorudzbinaSearch;
 use app\models\GlavnoJelo;
 use app\models\GlavnoJeloSearch;
 use app\models\Prilog;
@@ -12,7 +13,7 @@ use app\models\Salata;
 use app\models\SalataSearch;
 use app\models\Hleb;
 use app\models\HlebSearch;
-use app\models\PorudzbinaSearch;
+use app\models\OdrediCenu;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -60,6 +61,7 @@ class PorudzbinaController extends Controller
         $prilog = Prilog::getAll();
         $salata = Salata::getAll();
         $hleb = Hleb::getAll();
+        $cena = OdrediCenu::getAll();
 
         return $this->render('index', [
             'searchModel_glavno_jelo' => $searchModel_glavno_jelo,
@@ -73,7 +75,8 @@ class PorudzbinaController extends Controller
             'glavno_jelo' => $glavno_jelo,
             'prilog' => $prilog,
             'salata' => $salata,
-            'hleb' => $hleb
+            'hleb' => $hleb,
+            'cena' => $cena
 
         ]);
     }
@@ -104,9 +107,13 @@ class PorudzbinaController extends Controller
         $_prilog = ArrayHelper::map(Prilog::getAll(), 'id_prilog', 'ime_priloga');
         $_salata = ArrayHelper::map(Salata::getAll(), 'id_salata', 'ime_salate');
         $_hleb = ArrayHelper::map(Hleb::getAll(), 'id_hleb', 'ime_hleba');
+        $cena = OdrediCenu::getAll();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_porudzbina]);
+        if ($model->load(Yii::$app->request->post())) { 
+            $model->cena = $cena->trenutna_cena;
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id_porudzbina]);
+            }
         }
 
         return $this->render('create', [
@@ -114,7 +121,8 @@ class PorudzbinaController extends Controller
             '_glavno_jelo' => $_glavno_jelo,
             '_prilog' => $_prilog,
             '_salata' => $_salata,
-            '_hleb' => $_hleb
+            '_hleb' => $_hleb,
+            'cena' => $cena
         ]);
     }
 

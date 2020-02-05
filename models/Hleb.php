@@ -50,7 +50,7 @@ class Hleb extends \yii\db\ActiveRecord
      */
     public function getPorudzbinas()
     {
-        return $this->hasMany(Porudzbina::className(), ['id_hleb' => 'id_hleb']);
+        return $this->hasMany(Porudzbina::class(), ['id_hleb' => 'id_hleb']);
     }
 
     public static function getAll()

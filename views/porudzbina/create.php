@@ -12,13 +12,15 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="porudzbina-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
+   
 
     <?= $this->render('_form', [
         'model' => $model,
         '_glavno_jelo' => $_glavno_jelo,
         '_prilog' => $_prilog,
         '_salata' => $_salata,
-        '_hleb' => $_hleb
-    ]) ?>
-
+        '_hleb' => $_hleb,
+        'cena' => $cena
+        ]) ?>
+       
 </div>

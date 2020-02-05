@@ -50,7 +50,7 @@ class Salata extends \yii\db\ActiveRecord
      */
     public function getPorudzbinas()
     {
-        return $this->hasMany(Porudzbina::className(), ['id_salata' => 'id_salata']);
+        return $this->hasMany(Porudzbina::class(), ['id_salata' => 'id_salata']);
     }
 
     public static function getAll()

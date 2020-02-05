@@ -50,7 +50,7 @@ class Prilog extends \yii\db\ActiveRecord
      */
     public function getPorudzbinas()
     {
-        return $this->hasMany(Porudzbina::className(), ['id_prilog' => 'id_prilog']);
+        return $this->hasMany(Porudzbina::class(), ['id_prilog' => 'id_prilog']);
     }
 
     public static function getAll()

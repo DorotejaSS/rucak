@@ -23,6 +23,10 @@ use yii\widgets\ActiveForm;
     <label>Hleb:</label>
     <?= Html::activeDropDownList($model, 'id_hleb', $_hleb) ?> 
   
+    <label>Trenutna cena: <?=$cena->trenutna_cena?></label?>
+     
+
+  
 
     <div class="form-group">
         <?= Html::submitButton('Naruci', ['class' => 'btn btn-success']) ?>

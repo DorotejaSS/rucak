@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "porudzbina".
  *
  * @property int $id_porudzbina
- * @property int|null $id_osoba
+ * @property int|null $id_user
  * @property int|null $id_glavno_jelo
  * @property int|null $id_prilog
  * @property int|null $id_salata
@@ -18,7 +18,7 @@ use Yii;
  *
  * @property Hleb $hleb
  * @property GlavnoJelo $glavnoJelo
- * @property Osoba $osoba
+ * @property User $user
  * @property Prilog $prilog
  * @property Salata $salata
  */
@@ -38,14 +38,51 @@ class Porudzbina extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_osoba', 'id_glavno_jelo', 'id_prilog', 'id_salata', 'id_hleb'], 'integer'],
+            [['id_user', 'id_glavno_jelo', 'id_prilog', 'id_salata', 'id_hleb'], 'integer'],
             [['cena'], 'number'],
             [['created_on'], 'safe'],
-            [['id_hleb'], 'exist', 'skipOnError' => true, 'targetClass' => Hleb::className(), 'targetAttribute' => ['id_hleb' => 'id_hleb']],
-            [['id_glavno_jelo'], 'exist', 'skipOnError' => true, 'targetClass' => GlavnoJelo::className(), 'targetAttribute' => ['id_glavno_jelo' => 'id_glavno_jelo']],
-            [['id_osoba'], 'exist', 'skipOnError' => true, 'targetClass' => Osoba::className(), 'targetAttribute' => ['id_osoba' => 'id_osoba']],
-            [['id_prilog'], 'exist', 'skipOnError' => true, 'targetClass' => Prilog::className(), 'targetAttribute' => ['id_prilog' => 'id_prilog']],
-            [['id_salata'], 'exist', 'skipOnError' => true, 'targetClass' => Salata::className(), 'targetAttribute' => ['id_salata' => 'id_salata']],
+            [
+                ['id_hleb'],
+                'exist', 
+                'skipOnError' => true, 
+                'targetClass' => Hleb::className(), 
+                'targetAttribute' => ['id_hleb' => 'id_hleb']
+            ],
+            [
+                ['id_glavno_jelo'], 
+                'exist', 
+                'skipOnError' => true, 
+                'targetClass' => GlavnoJelo::className(), 
+                'targetAttribute' => ['id_glavno_jelo' => 'id_glavno_jelo']
+            ],
+            [
+                ['id_user'], 
+                'exist', 
+                'skipOnError' => true, 
+                'targetClass' => User::className(), 
+                'targetAttribute' => ['id_user' => 'id_user']
+            ],
+            [
+                ['id_prilog'], 
+                'exist', 
+                'skipOnError' => true, 
+                'targetClass' => Prilog::className(), 
+                'targetAttribute' => ['id_prilog' => 'id_prilog']
+            ],
+            [
+                ['id_salata'], 
+                'exist', 
+                'skipOnError' => true, 
+                'targetClass' => Salata::className(), 
+                'targetAttribute' => ['id_salata' => 'id_salata']
+            ],
+            [
+                ['cena'], 
+                'exist', 
+                'skipOnError' => true, 
+                'targetClass' => OdrediCenu::className(), 
+                'targetAttribute' => ['cena' => 'trenutna_cena']
+            ],
         ];
     }
 
@@ -56,7 +93,7 @@ class Porudzbina extends \yii\db\ActiveRecord
     {
         return [
             'id_porudzbina' => 'Id Porudzbina',
-            'id_osoba' => 'Id Osoba',
+            'id_user' => 'Id User',
             'id_glavno_jelo' => 'Id Glavno Jelo',
             'id_prilog' => 'Id Prilog',
             'id_salata' => 'Id Salata',
@@ -73,7 +110,7 @@ class Porudzbina extends \yii\db\ActiveRecord
      */
     public function getHleb()
     {
-        return $this->hasOne(Hleb::className(), ['id_hleb' => 'id_hleb']);
+        return $this->hasOne(Hleb::class(), ['id_hleb' => 'id_hleb']);
     }
 
     /**
@@ -82,19 +119,18 @@ class Porudzbina extends \yii\db\ActiveRecord
      * @return \yii\db\ActiveQuery
      */
     public function getGlavnoJelo()
-    {      
-        return GlavnoJelo::find()->all();
-        // return $this->hasMany(GlavnoJelo::className(), ['id_glavno_jelo' => 'id_glavno_jelo']);
+    {   
+        return $this->hasMany(GlavnoJelo::class(), ['id_glavno_jelo' => 'id_glavno_jelo']);
     }
 
     /**
-     * Gets query for [[Osoba]].
+     * Gets query for [[User]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getOsoba()
+    public function getUser()
     {
-        return $this->hasOne(Osoba::className(), ['id_osoba' => 'id_osoba']);
+        return $this->hasOne(User::class(), ['id_user' => 'id_user']);
     }
 
     /**
@@ -104,7 +140,7 @@ class Porudzbina extends \yii\db\ActiveRecord
      */
     public function getPrilog()
     {
-        return $this->hasOne(Prilog::className(), ['id_prilog' => 'id_prilog']);
+        return $this->hasOne(Prilog::class(), ['id_prilog' => 'id_prilog']);
     }
 
     /**
@@ -114,6 +150,11 @@ class Porudzbina extends \yii\db\ActiveRecord
      */
     public function getSalata()
     {
-        return $this->hasOne(Salata::className(), ['id_salata' => 'id_salata']);
+        return $this->hasOne(Salata::class(), ['id_salata' => 'id_salata']);
+    }
+
+    public function getOdrediCenu()
+    {
+       return $this->hasOne(OdrediCenu::className(), ['trenutna_cena' => 'cena']);
     }
 }

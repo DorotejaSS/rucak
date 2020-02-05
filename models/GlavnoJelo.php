@@ -33,7 +33,7 @@ class GlavnoJelo extends \yii\db\ActiveRecord
         return [
             [['nedelja', 'dan'], 'integer'],
             [['ime_jela'], 'string', 'max' => 45],
-            [['dan'], 'exist', 'skipOnError' => true, 'targetClass' => Dan::className(), 'targetAttribute' => ['dan' => 'id_dan']],
+            [['dan'], 'exist', 'skipOnError' => true, 'targetClass' => Dan::class(), 'targetAttribute' => ['dan' => 'id_dan']],
         ];
     }
 
@@ -57,7 +57,7 @@ class GlavnoJelo extends \yii\db\ActiveRecord
      */
     public function getDan0()
     {
-        return $this->hasOne(Dan::className(), ['id_dan' => 'dan']);
+        return $this->hasOne(Dan::class(), ['id_dan' => 'dan']);
     }
 
     /**
@@ -67,16 +67,16 @@ class GlavnoJelo extends \yii\db\ActiveRecord
      */
     public function getPorudzbinas()
     {
-        return $this->hasOne(Porudzbina::className(), ['id_glavno_jelo' => 'id_glavno_jelo']);
+        return $this->hasOne(Porudzbina::class(), ['id_glavno_jelo' => 'id_glavno_jelo']);
     }
 
     public static function getAll()
     {
         $date = date('Y-m-d');
         $firstOfMonth = date("Y-m-01", strtotime($date));
-        $week = intval(date("W", strtotime($date))) - intval(date("W", strtotime($firstOfMonth)));
+        $week = (int)date("W", strtotime($date)) - intval(date("W", strtotime($firstOfMonth)));
     
-        $week_day = intval(date('N')) + 1;
+        $week_day = (int)date('N') + 1;
 
         return GlavnoJelo::find()
         ->where([

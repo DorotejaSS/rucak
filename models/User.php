@@ -3,9 +3,6 @@
 namespace app\models;
 
 use Yii;
-use yii\db\ActiveRecord;
-use yii\web\IdentityInterface;
-
 
 /**
  * This is the model class for table "user".
@@ -24,11 +21,12 @@ use yii\web\IdentityInterface;
  * @property int $flags
  * @property int|null $last_login_at
  *
+ * @property Porudzbina[] $porudzbinas
  * @property Profile $profile
  * @property SocialAccount[] $socialAccounts
  * @property Token[] $tokens
  */
-class BackendUser extends ActiveRecord implements IdentityInterface
+class User extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -77,39 +75,14 @@ class BackendUser extends ActiveRecord implements IdentityInterface
         ];
     }
 
-    public static function findIdentity($id)
+    /**
+     * Gets query for [[Porudzbinas]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPorudzbinas()
     {
-        return static::findOne($id);
-    }
-    
-    public static function findIdentityByAccessToken($token, $type = null)
-    {
-        throw new \yii\base\NotSupportedException();
-    }
-
-    public function getId()
-    {   
-        return $this->id;
-    }
-
-    public function getAuthKey()
-    {
-        return $this->auth_key;
-    }
-
-    public function validateAuthKey($authKey)
-    {
-        return $this->auth_key === $authKey;
-    }
-
-    public static function findByUsername($username)
-    {
-        return self::findOne(['username' => $username]);
-    }
-
-    public function validatePassword($password)
-    {   
-        return password_verify($password, $this->password_hash);
+        return $this->hasMany(Porudzbina::className(), ['id_user' => 'id']);
     }
 
     /**
@@ -119,7 +92,7 @@ class BackendUser extends ActiveRecord implements IdentityInterface
      */
     public function getProfile()
     {
-        return $this->hasOne(Profile::class(), ['user_id' => 'id']);
+        return $this->hasOne(Profile::className(), ['user_id' => 'id']);
     }
 
     /**
@@ -129,7 +102,7 @@ class BackendUser extends ActiveRecord implements IdentityInterface
      */
     public function getSocialAccounts()
     {
-        return $this->hasMany(SocialAccount::class(), ['user_id' => 'id']);
+        return $this->hasMany(SocialAccount::className(), ['user_id' => 'id']);
     }
 
     /**
@@ -139,6 +112,6 @@ class BackendUser extends ActiveRecord implements IdentityInterface
      */
     public function getTokens()
     {
-        return $this->hasMany(Token::class(), ['user_id' => 'id']);
+        return $this->hasMany(Token::className(), ['user_id' => 'id']);
     }
 }
