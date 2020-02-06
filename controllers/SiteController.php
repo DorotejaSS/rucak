@@ -100,7 +100,7 @@ class SiteController extends Controller
     {
         $supervisor_identity = Yii::$app->user->identity ?? false;
         
-        if ($supervisor_identity->id === 1) {
+        if ($supervisor_identity->id_user === 1) {
             return $this->redirect(array('porudzbina-s/index'));
         }
         return $this->redirect(array('porudzbina/index'));

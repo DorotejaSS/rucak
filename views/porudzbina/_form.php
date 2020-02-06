@@ -10,10 +10,10 @@ use yii\widgets\ActiveForm;
 
 ?>
 
+    <label> Korisnik: <?=$id; ?>
 <div class="porudzbina-form">
 
     <?php $form = ActiveForm::begin(); ?>
-
     <label>Glavno jelo:</label>
     <?= Html::activeDropDownList($model, 'id_glavno_jelo', $_glavno_jelo) ?> 
     <label>Prilog:</label>

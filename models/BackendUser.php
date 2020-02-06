@@ -61,7 +61,7 @@ class BackendUser extends ActiveRecord implements IdentityInterface
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
+            'id_user' => 'ID',
             'username' => 'Username',
             'email' => 'Email',
             'password_hash' => 'Password Hash',
@@ -89,7 +89,7 @@ class BackendUser extends ActiveRecord implements IdentityInterface
 
     public function getId()
     {   
-        return $this->id;
+        return $this->id_user;
     }
 
     public function getAuthKey()
@@ -119,7 +119,7 @@ class BackendUser extends ActiveRecord implements IdentityInterface
      */
     public function getProfile()
     {
-        return $this->hasOne(Profile::class(), ['user_id' => 'id']);
+        return $this->hasOne(Profile::class(), ['user_id' => 'id_user']);
     }
 
     /**
@@ -129,7 +129,7 @@ class BackendUser extends ActiveRecord implements IdentityInterface
      */
     public function getSocialAccounts()
     {
-        return $this->hasMany(SocialAccount::class(), ['user_id' => 'id']);
+        return $this->hasMany(SocialAccount::class(), ['user_id' => 'id_user']);
     }
 
     /**
@@ -139,6 +139,6 @@ class BackendUser extends ActiveRecord implements IdentityInterface
      */
     public function getTokens()
     {
-        return $this->hasMany(Token::class(), ['user_id' => 'id']);
+        return $this->hasMany(Token::class(), ['user_id' => 'id_user']);
     }
 }

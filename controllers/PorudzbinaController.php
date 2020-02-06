@@ -62,6 +62,7 @@ class PorudzbinaController extends Controller
         $salata = Salata::getAll();
         $hleb = Hleb::getAll();
         $cena = OdrediCenu::getAll();
+        $id_user = Yii::$app->user->identity->id_user;
 
         return $this->render('index', [
             'searchModel_glavno_jelo' => $searchModel_glavno_jelo,
@@ -76,7 +77,8 @@ class PorudzbinaController extends Controller
             'prilog' => $prilog,
             'salata' => $salata,
             'hleb' => $hleb,
-            'cena' => $cena
+            'cena' => $cena,
+            'id_user' => $id_user
 
         ]);
     }
@@ -108,9 +110,13 @@ class PorudzbinaController extends Controller
         $_salata = ArrayHelper::map(Salata::getAll(), 'id_salata', 'ime_salate');
         $_hleb = ArrayHelper::map(Hleb::getAll(), 'id_hleb', 'ime_hleba');
         $cena = OdrediCenu::getAll();
+        $id = Yii::$app->user->identity->id_user;
+
+       
 
         if ($model->load(Yii::$app->request->post())) { 
             $model->cena = $cena->trenutna_cena;
+            $model->id_user = $id;
             if ($model->save()) {
                 return $this->redirect(['view', 'id' => $model->id_porudzbina]);
             }
@@ -122,7 +128,8 @@ class PorudzbinaController extends Controller
             '_prilog' => $_prilog,
             '_salata' => $_salata,
             '_hleb' => $_hleb,
-            'cena' => $cena
+            'cena' => $cena,
+            'user_id' => $id
         ]);
     }
 

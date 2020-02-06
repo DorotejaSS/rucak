@@ -82,7 +82,7 @@ class User extends \yii\db\ActiveRecord
      */
     public function getPorudzbinas()
     {
-        return $this->hasMany(Porudzbina::className(), ['id_user' => 'id']);
+        return $this->hasMany(Porudzbina::className(), ['id_user' => 'id_user']);
     }
 
     /**
@@ -92,7 +92,7 @@ class User extends \yii\db\ActiveRecord
      */
     public function getProfile()
     {
-        return $this->hasOne(Profile::className(), ['user_id' => 'id']);
+        return $this->hasOne(Profile::className(), ['user_id' => 'id_user']);
     }
 
     /**
@@ -102,7 +102,7 @@ class User extends \yii\db\ActiveRecord
      */
     public function getSocialAccounts()
     {
-        return $this->hasMany(SocialAccount::className(), ['user_id' => 'id']);
+        return $this->hasMany(SocialAccount::className(), ['user_id' => 'id_user']);
     }
 
     /**
@@ -112,6 +112,6 @@ class User extends \yii\db\ActiveRecord
      */
     public function getTokens()
     {
-        return $this->hasMany(Token::className(), ['user_id' => 'id']);
+        return $this->hasMany(Token::className(), ['user_id' => 'id_user']);
     }
 }

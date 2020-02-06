@@ -97,7 +97,7 @@ class Menu extends \yii\db\ActiveRecord
   
         if ($supervisor_identity === false) {
             return self::getLoginMenu();
-        } else if (($supervisor_identity) && $supervisor_identity->id === 1) {
+        } else if (($supervisor_identity) && $supervisor_identity->id_user === 1) {
             return self::getSupervisorMenu();
         } 
             return self::getRegularMenu();

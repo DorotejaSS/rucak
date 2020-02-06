@@ -36,7 +36,6 @@ class MenuController extends Controller
      */
     public function actionIndex()
     {
-        dd('menu controler');
         $searchModel = new MenuSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 

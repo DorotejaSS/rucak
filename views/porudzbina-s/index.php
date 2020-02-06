@@ -61,7 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'User',
                 'value' => function($model) {
-                   return $model->user;
+                   return $model->id_user;
                 }
             ],
 

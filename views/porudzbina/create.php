@@ -20,7 +20,8 @@ $this->params['breadcrumbs'][] = $this->title;
         '_prilog' => $_prilog,
         '_salata' => $_salata,
         '_hleb' => $_hleb,
-        'cena' => $cena
+        'cena' => $cena,
+        'id' => $user_id
         ]) ?>
        
 </div>

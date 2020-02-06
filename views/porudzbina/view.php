@@ -39,6 +39,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'cena',
             'created_on',
         ],
-    ]) ?>
+        ]) ?>
 
 </div>

@@ -125,7 +125,7 @@ class PorudzbinaS extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'id_user']);
+        return $this->hasOne(User::className(), ['id_user' => 'id_user']);
     }
 
     public function getAll()
