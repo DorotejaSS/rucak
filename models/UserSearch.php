@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Osoba;
+use app\models\User;
 
 /**
- * OsobaSearch represents the model behind the search form of `app\models\Osoba`.
+ * UserSearch represents the model behind the search form of `app\models\User`.
  */
-class OsobaSearch extends Osoba
+class UserSearch extends User
 {
     /**
      * {@inheritdoc}
@@ -40,7 +40,7 @@ class OsobaSearch extends Osoba
      */
     public function search($params)
     {
-        $query = Osoba::find();
+        $query = User::find();
 
         // add conditions that should always apply here
 

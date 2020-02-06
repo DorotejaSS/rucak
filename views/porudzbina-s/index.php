@@ -27,13 +27,43 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id_porudzbina',
-            'id_glavno_jelo',
-            'id_prilog',
-            'id_salata',
-            'id_hleb',
-            'cena',
+            [
+                'attribute' => 'Glavno jelo',
+                'value' => function($model) {
+                   return $model->glavnoJelo->ime_jela;
+                }
+            ],
+            [
+                'attribute' => 'Prilog',
+                'value' => function($model) {
+                   return $model->prilog->ime_priloga;
+                }
+            ],
+            [
+                'attribute' => 'Salata',
+                'value' => function($model) {
+                   return $model->salata->ime_salate;
+                }
+            ],
+            [
+                'attribute' => 'Hleb',
+                'value' => function($model) {
+                   return $model->hleb->ime_hleba;
+                }
+            ],
+            [
+                'attribute' => 'Cena',
+                'value' => function($model) {
+                   return $model->cena;
+                }
+            ],
             'created_on',
-            'id_user',
+            [
+                'attribute' => 'User',
+                'value' => function($model) {
+                   return $model->user;
+                }
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

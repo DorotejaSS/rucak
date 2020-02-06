@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2020-02-05 16:50:35
+Date: 2020-02-06 16:45:30
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -143,20 +143,22 @@ CREATE TABLE `menu` (
   `name` varchar(255) DEFAULT NULL,
   `order` int(11) DEFAULT NULL,
   `description` text DEFAULT NULL,
+  `supervisor` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of menu
 -- ----------------------------
-INSERT INTO `menu` VALUES ('1', '0', '/porudzbina/index', null, 'Porudzbine', '1', 'Porudzbine link');
-INSERT INTO `menu` VALUES ('2', '0', '/glavno-jelo/index', null, 'Glavno jelo', '2', null);
-INSERT INTO `menu` VALUES ('4', '0', '/salata/index', null, 'Salata', '3', null);
-INSERT INTO `menu` VALUES ('5', '0', '/prilog/index', null, 'Prilog', '4', null);
-INSERT INTO `menu` VALUES ('6', '0', '/osoba/index', null, 'Zaposleni', '5', null);
-INSERT INTO `menu` VALUES ('7', '0', '/kompanija/index', null, 'Kopmanije', '6', null);
-INSERT INTO `menu` VALUES ('8', '0', '/site/login', null, 'Login', '7', null);
-INSERT INTO `menu` VALUES ('9', '0', '/site/logout', null, 'Logout', '8', null);
+INSERT INTO `menu` VALUES ('1', '0', '/porudzbina-s/index', null, 'Porudzbine', '1', 'Porudzbine link', '1');
+INSERT INTO `menu` VALUES ('2', '0', '/glavno-jelo/index', null, 'Glavno jelo', '2', null, '1');
+INSERT INTO `menu` VALUES ('4', '0', '/salata/index', null, 'Salata', '3', null, '1');
+INSERT INTO `menu` VALUES ('5', '0', '/prilog/index', null, 'Prilog', '4', null, '1');
+INSERT INTO `menu` VALUES ('6', '0', '/user/index', null, 'Zaposleni', '5', null, '1');
+INSERT INTO `menu` VALUES ('7', '0', '/kompanija/index', null, 'Kompanija', '6', null, '0');
+INSERT INTO `menu` VALUES ('10', null, '/hleb/index', null, 'Hleb', '7', null, '1');
+INSERT INTO `menu` VALUES ('11', null, '/odredi-cenu/update?id=1', null, 'Cena', '8', null, '1');
+INSERT INTO `menu` VALUES ('12', null, '/porudzbina/index', null, 'Poruci Jelo', '9', null, '0');
 
 -- ----------------------------
 -- Table structure for migration
@@ -217,41 +219,6 @@ CREATE TABLE `odredi_cenu` (
 INSERT INTO `odredi_cenu` VALUES ('1', '444.00');
 
 -- ----------------------------
--- Table structure for osoba
--- ----------------------------
-DROP TABLE IF EXISTS `osoba`;
-CREATE TABLE `osoba` (
-  `id_osoba` int(11) NOT NULL AUTO_INCREMENT,
-  `ime` varchar(100) DEFAULT NULL,
-  `prezime` varchar(200) DEFAULT NULL,
-  PRIMARY KEY (`id_osoba`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
-
--- ----------------------------
--- Records of osoba
--- ----------------------------
-INSERT INTO `osoba` VALUES ('1', 'Supervisor', 'supervisor');
-INSERT INTO `osoba` VALUES ('2', 'Nemanja', 'Jankovic');
-INSERT INTO `osoba` VALUES ('3', 'Zoran', 'Grcic');
-INSERT INTO `osoba` VALUES ('4', 'Bogdan ', 'Maksimovic');
-INSERT INTO `osoba` VALUES ('5', 'Vladimir ', 'Simsic');
-INSERT INTO `osoba` VALUES ('6', 'Damjan', 'Miladinovic');
-INSERT INTO `osoba` VALUES ('7', 'Mirela', 'Kondic');
-INSERT INTO `osoba` VALUES ('8', 'Nina ', 'Nedeljkovic');
-INSERT INTO `osoba` VALUES ('9', 'Bojana ', 'Rakic');
-INSERT INTO `osoba` VALUES ('10', 'Filip ', 'Miletic');
-INSERT INTO `osoba` VALUES ('11', 'Natasa', 'Kekanovic');
-INSERT INTO `osoba` VALUES ('12', 'Nikola', 'Bulog');
-INSERT INTO `osoba` VALUES ('13', 'Boban ', 'Damjanovic');
-INSERT INTO `osoba` VALUES ('14', 'Goran', 'Josipovic');
-INSERT INTO `osoba` VALUES ('15', 'Bojana', 'Majstorovic');
-INSERT INTO `osoba` VALUES ('16', 'Boris', 'Bejatovic');
-INSERT INTO `osoba` VALUES ('17', 'Dragan', 'Loncarevic');
-INSERT INTO `osoba` VALUES ('18', 'Marko', 'Medojevic');
-INSERT INTO `osoba` VALUES ('19', 'Zoran', 'Gojkovic');
-INSERT INTO `osoba` VALUES ('21', 'Milan', 'Radusin');
-
--- ----------------------------
 -- Table structure for porudzbina
 -- ----------------------------
 DROP TABLE IF EXISTS `porudzbina`;
@@ -277,7 +244,7 @@ CREATE TABLE `porudzbina` (
   CONSTRAINT `id_ime_fk_porudzbina_salata` FOREIGN KEY (`id_salata`) REFERENCES `salata` (`id_salata`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `porudzbina_ibfk_1` FOREIGN KEY (`cena`) REFERENCES `odredi_cenu` (`trenutna_cena`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `porudzbina_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of porudzbina
@@ -293,6 +260,7 @@ INSERT INTO `porudzbina` VALUES ('13', '7', '1', '1', '1', null, null, null);
 INSERT INTO `porudzbina` VALUES ('14', '7', '1', '1', '1', null, null, null);
 INSERT INTO `porudzbina` VALUES ('15', '7', '1', '1', '1', null, null, null);
 INSERT INTO `porudzbina` VALUES ('16', '7', '1', '1', '1', '444', null, null);
+INSERT INTO `porudzbina` VALUES ('17', '10', '2', '2', '2', '444', null, null);
 
 -- ----------------------------
 -- Table structure for posna_jela
@@ -444,5 +412,5 @@ CREATE TABLE `user` (
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES ('1', 'Supervisor', 'milanradusin@yahoo.com', '$2y$10$NFclEwLB0csM4OLZUznYieBMf2EYcnQFrWxrkaGEKB0MgatoDMv.y', 'LiJ4tXqGPCzqM48v1dV3EwUBqL20xB9P', '1577360424', null, null, '127.0.0.1', '1577360346', '1577360346', '0', '1578490144');
-INSERT INTO `user` VALUES ('2', 'Milan', 'milanradusin@gmil.com', '$2y$10$oc6kxHASuPq9Nc.U2oZXcuW1UukPa07rKuMHcU8nnrmK12iREQmDu', 'rE0LgzQZRPGnF3qjl9bj-9UgxdsQGQmE', '1577366617', null, null, '127.0.0.1', '1577366436', '1577366436', '0', '1578300061');
+INSERT INTO `user` VALUES ('2', 'Milan', 'milanradusin@gmil.com', '$2y$10$NFclEwLB0csM4OLZUznYieBMf2EYcnQFrWxrkaGEKB0MgatoDMv.y', 'rE0LgzQZRPGnF3qjl9bj-9UgxdsQGQmE', '1577366617', null, null, '127.0.0.1', '1577366436', '1577366436', '0', '1578300061');
 INSERT INTO `user` VALUES ('3', 'Boban', 'radusinmilan@gmail.com', '$2y$10$qaArgDp7zs/7hdgaLqE2Z.aO8mL8.ZgAqscGuxdbeSRDJR9.yaYAq', 'rgfLxIrFlHLBqW8G4zTC5_L2BTj43UXs', '1577455428', null, null, '127.0.0.1', '1577455326', '1577455326', '0', '1578300252');

@@ -113,7 +113,7 @@ class PorudzbinaS extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getCena0()
+    public function getCena()
     {
         return $this->hasOne(OdrediCenu::className(), ['trenutna_cena' => 'cena']);
     }
@@ -126,5 +126,10 @@ class PorudzbinaS extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'id_user']);
+    }
+
+    public function getAll()
+    {
+        // dd(PorudzbinaS::find()->all());
     }
 }
