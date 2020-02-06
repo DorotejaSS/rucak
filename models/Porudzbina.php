@@ -161,7 +161,7 @@ class Porudzbina extends \yii\db\ActiveRecord
 
     public static function getAll()
     {
-        // return Porudzbina::find()
+        return Porudzbina::find()->all();
         // ->where(['user_id' => $this->getUser()]);
     }
 }

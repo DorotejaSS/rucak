@@ -10,9 +10,12 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\Porudzbina;
+use app\models\Menu;
+use app\models\MenuSearch;
 
 class SiteController extends Controller
 {
+    public $layout;
     /**
      * {@inheritdoc}
      */
@@ -79,14 +82,7 @@ class SiteController extends Controller
         $model = new LoginForm();
         
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            if($this->checkPrivileges()){
-                $porudzbina = new Porudzbina();
-                return $this->render('supervisor');
-                //izlistavaju se porudzbine
-                // dd($porudzbina->getAll());
-            } else {
-                return $this->goBack();
-            }
+            $this->checkPrivileges();
         }
 
         $model->password = '';
@@ -95,13 +91,19 @@ class SiteController extends Controller
         ]);
     }
 
+    public function supervisorLayout()
+    {   
+        return $this->render('supervisor');
+    }
+
     public function checkPrivileges()
     {
         $supervisor_identity = Yii::$app->user->identity ?? false;
-
-        if ($supervisor_identity->id === 1 && $supervisor_identity->username === 'Supervisor') {
-            return true;
+        
+        if ($supervisor_identity->id === 1) {
+            return $this->redirect(array('porudzbina-s/index'));
         }
+        return $this->redirect(array('porudzbina/index'));
     }
 
     /**

@@ -26,7 +26,7 @@ use Yii;
  * @property SocialAccount[] $socialAccounts
  * @property Token[] $tokens
  */
-class User extends \yii\db\ActiveRecord
+class Osoba extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
