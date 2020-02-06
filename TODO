@@ -1,3 +1,4 @@
 cuvati podatke o porudzbinama za 7 dana unazad
-cuvati id osobe koja narucuje
 zaposleni moze da vidi svoje porudzbine za 7 dana unazad
+promeniti u bazi pod porudzbina.created_on TIMESTAMP i CURRENT_TIMESTAMP()
+umesto id korisnik moze da vidi sta je narucio

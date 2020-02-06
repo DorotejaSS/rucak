@@ -7,7 +7,7 @@ use Yii;
 /**
  * This is the model class for table "user".
  *
- * @property int $id
+ * @property int $id_user
  * @property string $username
  * @property string $email
  * @property string $password_hash
@@ -59,7 +59,7 @@ class User extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
+            'id_user' => 'ID',
             'username' => 'Username',
             'email' => 'Email',
             'password_hash' => 'Password Hash',

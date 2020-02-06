@@ -58,7 +58,7 @@ class UserSearch extends User
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id_user' => $this->id,
+            'id_user' => $this->id_user,
             'confirmed_at' => $this->confirmed_at,
             'blocked_at' => $this->blocked_at,
             'created_at' => $this->created_at,

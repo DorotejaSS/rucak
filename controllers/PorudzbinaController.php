@@ -111,7 +111,6 @@ class PorudzbinaController extends Controller
         $_hleb = ArrayHelper::map(Hleb::getAll(), 'id_hleb', 'ime_hleba');
         $cena = OdrediCenu::getAll();
         $id = Yii::$app->user->identity->id_user;
-
        
 
         if ($model->load(Yii::$app->request->post())) { 
