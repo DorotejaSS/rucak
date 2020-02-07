@@ -17,7 +17,7 @@ class GlavnoJeloSearch extends GlavnoJelo
     public function rules()
     {
         return [
-            [['id_glavno_jelo', 'nedelja', 'dan'], 'integer'],
+            [['id_glavno_jelo', 'nedelja', 'id_dan'], 'integer'],
             [['ime_jela'], 'safe'],
         ];
     }
@@ -60,7 +60,7 @@ class GlavnoJeloSearch extends GlavnoJelo
         $query->andFilterWhere([
             'id_glavno_jelo' => $this->id_glavno_jelo,
             'nedelja' => $this->nedelja,
-            'dan' => $this->dan,
+            'id_dan' => $this->id_dan,
         ]);
 
         $query->andFilterWhere(['like', 'ime_jela', $this->ime_jela]);

@@ -14,6 +14,7 @@ use app\models\SalataSearch;
 use app\models\Hleb;
 use app\models\HlebSearch;
 use app\models\OdrediCenu;
+use app\models\Dan;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -63,6 +64,9 @@ class PorudzbinaController extends Controller
         $hleb = Hleb::getAll();
         $cena = OdrediCenu::getAll();
         $id_user = Yii::$app->user->identity->id_user;
+        $dan =  new Dan();
+        $naziv_dana = $dan->getGlavnoJelos();
+    
 
         return $this->render('index', [
             'searchModel_glavno_jelo' => $searchModel_glavno_jelo,

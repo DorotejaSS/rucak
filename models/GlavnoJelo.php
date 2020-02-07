@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\models\Dan;
 
 /**
  * This is the model class for table "glavno_jelo".
@@ -55,9 +56,19 @@ class GlavnoJelo extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getDan0()
+    public function getDan()
     {
-        return $this->hasOne(Dan::class(), ['id_dan' => 'dan']);
+        return $this->hasMany(Dan::className(), ['id_dan' => 'id_dan']);
+    }
+
+    public function getIdDana()
+    {
+       $glavno_jelo = GlavnoJelo::find()->all();
+       $dan = [];
+       foreach ($glavno_jelo as $key => $value) {
+           $dan[] = $value->dan;
+       }
+       return $dan;
     }
 
     /**
@@ -81,7 +92,7 @@ class GlavnoJelo extends \yii\db\ActiveRecord
         return GlavnoJelo::find()
         ->where([
             'nedelja' => $week,
-            'dan' => $week_day,
+            'id_dan' => $week_day,
         ])
         ->orWhere([
             'nedelja' => 0

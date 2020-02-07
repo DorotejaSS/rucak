@@ -50,6 +50,6 @@ class Dan extends \yii\db\ActiveRecord
      */
     public function getGlavnoJelos()
     {
-        return $this->hasMany(GlavnoJelo::class(), ['dan' => 'id_dan']);
+        return $this->hasOne(GlavnoJelo::className(), ['id_dan' => 'id_dan']);
     }
 }

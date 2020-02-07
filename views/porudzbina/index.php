@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\PorudzbinaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Porudzbinas';
+$this->title = 'U ponudi imamo:';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="porudzbina-index">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Porudzbina', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Napravi Porudzbinu', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -24,6 +24,16 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'ime_jela',
+            'nedelja', 
+         
+            [
+                'attribute' => 'dan',
+                'value' => function($model) {
+                    dump($model->iddana);
+                    die;
+                }
+            ],
+    
         ],
     ]); ?>
 

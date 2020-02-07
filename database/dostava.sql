@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2020-02-07 09:44:46
+Date: 2020-02-07 16:49:08
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -21,7 +21,7 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `dan`;
 CREATE TABLE `dan` (
   `id_dan` int(11) NOT NULL AUTO_INCREMENT,
-  `dan` varchar(100) DEFAULT NULL,
+  `dan` varchar(100) DEFAULT '',
   PRIMARY KEY (`id_dan`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
@@ -44,10 +44,10 @@ CREATE TABLE `glavno_jelo` (
   `id_glavno_jelo` int(11) NOT NULL AUTO_INCREMENT,
   `ime_jela` varchar(45) DEFAULT NULL,
   `nedelja` int(11) DEFAULT NULL,
-  `dan` int(11) DEFAULT NULL,
+  `id_dan` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_glavno_jelo`) USING BTREE,
-  KEY `fk_dan_dan` (`dan`) USING BTREE,
-  CONSTRAINT `fk_dan_dan` FOREIGN KEY (`dan`) REFERENCES `dan` (`id_dan`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `fk_dan_dan` (`id_dan`) USING BTREE,
+  CONSTRAINT `fk_dan_dan` FOREIGN KEY (`id_dan`) REFERENCES `dan` (`id_dan`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
@@ -145,7 +145,7 @@ CREATE TABLE `menu` (
   `description` text DEFAULT NULL,
   `supervisor` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of menu
@@ -159,6 +159,7 @@ INSERT INTO `menu` VALUES ('7', '0', '/kompanija/index', null, 'Kompanija', '6',
 INSERT INTO `menu` VALUES ('10', null, '/hleb/index', null, 'Hleb', '7', null, '1');
 INSERT INTO `menu` VALUES ('11', null, '/odredi-cenu/update?id=1', null, 'Cena', '8', null, '1');
 INSERT INTO `menu` VALUES ('12', null, '/porudzbina/index', null, 'Poruci Jelo', '9', null, '0');
+INSERT INTO `menu` VALUES ('13', null, '/porudzbina/poruceno', null, 'Porucena Jela', '10', null, '0');
 
 -- ----------------------------
 -- Table structure for migration
@@ -186,6 +187,8 @@ INSERT INTO `migration` VALUES ('m150623_212711_fix_username_notnull', '15773600
 INSERT INTO `migration` VALUES ('m151218_234654_add_timezone_to_profile', '1577360088');
 INSERT INTO `migration` VALUES ('m160929_103127_add_last_login_at_to_user_table', '1577360088');
 INSERT INTO `migration` VALUES ('m191201_095231_menu', '1575194154');
+INSERT INTO `migration` VALUES ('m200207_151308_add_kompanija_id_column_to_user_table', '1581088557');
+INSERT INTO `migration` VALUES ('m200207_153606_create_foreign_key', '1581089988');
 
 -- ----------------------------
 -- Table structure for nedelja
@@ -244,24 +247,22 @@ CREATE TABLE `porudzbina` (
   CONSTRAINT `id_ime_fk_porudzbina_salata` FOREIGN KEY (`id_salata`) REFERENCES `salata` (`id_salata`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `porudzbina_ibfk_1` FOREIGN KEY (`cena`) REFERENCES `odredi_cenu` (`trenutna_cena`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `porudzbina_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of porudzbina
 -- ----------------------------
-INSERT INTO `porudzbina` VALUES ('6', '43', '2', '2', '1', '444', '2020-01-07 00:00:00', null);
-INSERT INTO `porudzbina` VALUES ('7', '7', '4', '2', '2', null, null, null);
-INSERT INTO `porudzbina` VALUES ('8', '7', '1', '1', '1', null, null, null);
 INSERT INTO `porudzbina` VALUES ('9', '7', '1', '1', '1', null, null, null);
-INSERT INTO `porudzbina` VALUES ('10', '7', '1', '1', '1', null, null, null);
 INSERT INTO `porudzbina` VALUES ('11', '7', '1', '1', '1', null, null, null);
 INSERT INTO `porudzbina` VALUES ('12', '7', '1', '1', '1', null, null, null);
 INSERT INTO `porudzbina` VALUES ('13', '7', '1', '1', '1', null, null, null);
 INSERT INTO `porudzbina` VALUES ('14', '7', '1', '1', '1', null, null, null);
-INSERT INTO `porudzbina` VALUES ('15', '7', '1', '1', '1', null, null, null);
-INSERT INTO `porudzbina` VALUES ('16', '7', '1', '1', '1', '444', null, null);
-INSERT INTO `porudzbina` VALUES ('17', '10', '2', '2', '2', '444', null, null);
 INSERT INTO `porudzbina` VALUES ('18', '45', '2', '1', '1', '444', '2020-02-07 09:43:08', '2');
+INSERT INTO `porudzbina` VALUES ('19', '43', '1', '1', '1', '444', '2020-02-07 09:50:58', '2');
+INSERT INTO `porudzbina` VALUES ('20', '43', '1', '1', '1', '444', '2020-02-07 10:30:19', '2');
+INSERT INTO `porudzbina` VALUES ('21', '43', '1', '1', '1', '444', '2020-02-07 10:33:15', '2');
+INSERT INTO `porudzbina` VALUES ('22', '43', '1', '1', '1', '444', '2020-02-07 10:40:38', '2');
+INSERT INTO `porudzbina` VALUES ('24', '43', '1', '1', '1', '444', '2020-02-07 12:19:28', '2');
 
 -- ----------------------------
 -- Table structure for posna_jela
@@ -404,14 +405,17 @@ CREATE TABLE `user` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `flags` int(11) NOT NULL DEFAULT 0,
   `last_login_at` int(11) DEFAULT NULL,
+  `kompanija_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_user`) USING BTREE,
   UNIQUE KEY `user_unique_username` (`username`) USING BTREE,
-  UNIQUE KEY `user_unique_email` (`email`) USING BTREE
+  UNIQUE KEY `user_unique_email` (`email`) USING BTREE,
+  KEY `id_kompanija_fk` (`kompanija_id`),
+  CONSTRAINT `id_kompanija_fk` FOREIGN KEY (`kompanija_id`) REFERENCES `kompanija` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'Supervisor', 'milanradusin@yahoo.com', '$2y$10$NFclEwLB0csM4OLZUznYieBMf2EYcnQFrWxrkaGEKB0MgatoDMv.y', 'LiJ4tXqGPCzqM48v1dV3EwUBqL20xB9P', '1577360424', null, null, '127.0.0.1', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0', '1578490144');
-INSERT INTO `user` VALUES ('2', 'Milan', 'milanradusin@gmil.com', '$2y$10$NFclEwLB0csM4OLZUznYieBMf2EYcnQFrWxrkaGEKB0MgatoDMv.y', 'rE0LgzQZRPGnF3qjl9bj-9UgxdsQGQmE', '1577366617', null, null, '127.0.0.1', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0', '1578300061');
-INSERT INTO `user` VALUES ('3', 'Boban', 'radusinmilan@gmail.com', '$2y$10$qaArgDp7zs/7hdgaLqE2Z.aO8mL8.ZgAqscGuxdbeSRDJR9.yaYAq', 'rgfLxIrFlHLBqW8G4zTC5_L2BTj43UXs', '1577455428', null, null, '127.0.0.1', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0', '1578300252');
+INSERT INTO `user` VALUES ('1', 'Supervisor', 'milanradusin@yahoo.com', '$2y$10$NFclEwLB0csM4OLZUznYieBMf2EYcnQFrWxrkaGEKB0MgatoDMv.y', 'LiJ4tXqGPCzqM48v1dV3EwUBqL20xB9P', '1577360424', null, null, '127.0.0.1', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0', '1578490144', null);
+INSERT INTO `user` VALUES ('2', 'Milan', 'milanradusin@gmil.com', '$2y$10$NFclEwLB0csM4OLZUznYieBMf2EYcnQFrWxrkaGEKB0MgatoDMv.y', 'rE0LgzQZRPGnF3qjl9bj-9UgxdsQGQmE', '1577366617', null, null, '127.0.0.1', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0', '1578300061', null);
+INSERT INTO `user` VALUES ('3', 'Boban', 'radusinmilan@gmail.com', '$2y$10$qaArgDp7zs/7hdgaLqE2Z.aO8mL8.ZgAqscGuxdbeSRDJR9.yaYAq', 'rgfLxIrFlHLBqW8G4zTC5_L2BTj43UXs', '1577455428', null, null, '127.0.0.1', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0', '1578300252', null);
