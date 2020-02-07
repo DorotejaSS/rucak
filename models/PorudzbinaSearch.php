@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Porudzbina;
@@ -40,8 +41,10 @@ class PorudzbinaSearch extends Porudzbina
      * @return ActiveDataProvider
      */
     public function search($params)
-    {
-        $query = Porudzbina::find();
+    {   
+        $user_id = Yii::$app->user->identity->id;
+        $query = Porudzbina::find()
+        ->where(['id_user' => $user_id]);
 
         // add conditions that should always apply here
 

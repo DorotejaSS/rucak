@@ -16,7 +16,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id_porudzbina], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id_porudzbina], [
             'class' => 'btn btn-danger',
             'data' => [
@@ -31,11 +30,30 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id_porudzbina',
-            'id_user',
-            'id_glavno_jelo',
-            'id_prilog',
-            'id_salata',
-            'id_hleb',
+            [
+                'attribute' => 'Glavno jelo',
+                'value' => function($model) {
+                    return $model->glavnoJelo[0]->ime_jela;
+                }
+            ],
+            [
+                'attribute' => 'Prilog',
+                'value' => function($model) {
+                    return $model->prilog->ime_priloga;
+                }
+            ],
+            [
+                'attribute' => 'Salata',
+                'value' => function($model) {
+                    return $model->salata->ime_salate;
+                }
+            ],
+            [
+                'attribute' => 'Hleb',
+                'value' => function($model) {
+                    return $model->hleb->ime_hleba;
+                }
+            ],
             'cena',
             'created_on',
         ],

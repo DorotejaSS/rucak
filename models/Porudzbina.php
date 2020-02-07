@@ -111,7 +111,7 @@ class Porudzbina extends \yii\db\ActiveRecord
      */
     public function getHleb()
     {
-        return $this->hasOne(Hleb::class(), ['id_hleb' => 'id_hleb']);
+        return $this->hasOne(Hleb::className(), ['id_hleb' => 'id_hleb']);
     }
 
     /**
@@ -121,7 +121,7 @@ class Porudzbina extends \yii\db\ActiveRecord
      */
     public function getGlavnoJelo()
     {   
-        return $this->hasMany(GlavnoJelo::class(), ['id_glavno_jelo' => 'id_glavno_jelo']);
+        return $this->hasMany(GlavnoJelo::className(), ['id_glavno_jelo' => 'id_glavno_jelo']);
     }
 
     /**
@@ -141,7 +141,7 @@ class Porudzbina extends \yii\db\ActiveRecord
      */
     public function getPrilog()
     {
-        return $this->hasOne(Prilog::class(), ['id_prilog' => 'id_prilog']);
+        return $this->hasOne(Prilog::className(), ['id_prilog' => 'id_prilog']);
     }
 
     /**
@@ -151,7 +151,7 @@ class Porudzbina extends \yii\db\ActiveRecord
      */
     public function getSalata()
     {
-        return $this->hasOne(Salata::class(), ['id_salata' => 'id_salata']);
+        return $this->hasOne(Salata::className(), ['id_salata' => 'id_salata']);
     }
 
     public function getOdrediCenu()
@@ -162,5 +162,12 @@ class Porudzbina extends \yii\db\ActiveRecord
     public static function getAll()
     {
         return Porudzbina::find()->all();
+    }
+
+    public static function getById($id)
+    {   
+        return Porudzbina::find()
+        ->where(['id_user' => $id])
+        ->all();
     }
 }

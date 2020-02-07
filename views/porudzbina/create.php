@@ -16,10 +16,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
-        '_glavno_jelo' => $_glavno_jelo,
-        '_prilog' => $_prilog,
-        '_salata' => $_salata,
-        '_hleb' => $_hleb,
+        'glavno_jelo' => $glavno_jelo,
+        'prilog' => $prilog,
+        'salata' => $salata,
+        'hleb' => $hleb,
         'cena' => $cena,
         'id' => $user_id
         ]) ?>

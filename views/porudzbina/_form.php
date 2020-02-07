@@ -10,23 +10,19 @@ use yii\widgets\ActiveForm;
 
 ?>
 
-    <label> Korisnik: <?=$id; ?>
 <div class="porudzbina-form">
 
     <?php $form = ActiveForm::begin(); ?>
     <label>Glavno jelo:</label>
-    <?= Html::activeDropDownList($model, 'id_glavno_jelo', $_glavno_jelo) ?> 
+    <?= Html::activeDropDownList($model, 'id_glavno_jelo', $glavno_jelo) ?> 
     <label>Prilog:</label>
-    <?= Html::activeDropDownList($model, 'id_prilog', $_prilog) ?> 
+    <?= Html::activeDropDownList($model, 'id_prilog', $prilog) ?> 
     <label>Salata:</label>
-    <?= Html::activeDropDownList($model, 'id_salata', $_salata) ?> 
+    <?= Html::activeDropDownList($model, 'id_salata', $salata) ?> 
     <label>Hleb:</label>
-    <?= Html::activeDropDownList($model, 'id_hleb', $_hleb) ?> 
+    <?= Html::activeDropDownList($model, 'id_hleb', $hleb) ?> 
   
-    <label>Trenutna cena: <?=$cena->trenutna_cena?></label?>
-     
-
-  
+    <label>Trenutna cena: <?=$cena->trenutna_cena?></label?>  
 
     <div class="form-group">
         <?= Html::submitButton('Naruci', ['class' => 'btn btn-success']) ?>

@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'Glavno jelo',
                 'value' => function($model) {
-                   return $model->glavnoJelo->ime_jela;
+                  return $model->glavnoJelo[0]->ime_jela;
                 }
             ],
             [

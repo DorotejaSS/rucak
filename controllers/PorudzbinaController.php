@@ -91,9 +91,24 @@ class PorudzbinaController extends Controller
      */
     public function actionView($id)
     {
+        $user_id = Yii::$app->user->identity->id;
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
+    }
+
+    public function actionPoruceno()
+    {   
+        $user_id = Yii::$app->user->identity->id;
+        $model = Porudzbina::getById($user_id);
+        $searchModel = new PorudzbinaSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        return $this->render('poruceno', [
+            'model' => $model,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider
+        ]);
+
     }
 
     /**
@@ -105,10 +120,10 @@ class PorudzbinaController extends Controller
     {
         $model = new Porudzbina();
 
-        $_glavno_jelo = ArrayHelper::map(GlavnoJelo::getAll(),'id_glavno_jelo', 'ime_jela');
-        $_prilog = ArrayHelper::map(Prilog::getAll(), 'id_prilog', 'ime_priloga');
-        $_salata = ArrayHelper::map(Salata::getAll(), 'id_salata', 'ime_salate');
-        $_hleb = ArrayHelper::map(Hleb::getAll(), 'id_hleb', 'ime_hleba');
+        $glavno_jelo = ArrayHelper::map(GlavnoJelo::getAll(),'id_glavno_jelo', 'ime_jela');
+        $prilog = ArrayHelper::map(Prilog::getAll(), 'id_prilog', 'ime_priloga');
+        $salata = ArrayHelper::map(Salata::getAll(), 'id_salata', 'ime_salate');
+        $hleb = ArrayHelper::map(Hleb::getAll(), 'id_hleb', 'ime_hleba');
         $cena = OdrediCenu::getAll();
         $id = Yii::$app->user->identity->id_user;
        
@@ -123,10 +138,10 @@ class PorudzbinaController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            '_glavno_jelo' => $_glavno_jelo,
-            '_prilog' => $_prilog,
-            '_salata' => $_salata,
-            '_hleb' => $_hleb,
+            'glavno_jelo' => $glavno_jelo,
+            'prilog' => $prilog,
+            'salata' => $salata,
+            'hleb' => $hleb,
             'cena' => $cena,
             'user_id' => $id
         ]);

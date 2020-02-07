@@ -41,7 +41,8 @@ class PorudzbinaSSearch extends PorudzbinaS
      */
     public function search($params)
     {
-        $query = PorudzbinaS::find();
+        $query = PorudzbinaS::find()
+        ->orderBy(['created_on' => SORT_DESC]);
 
         // add conditions that should always apply here
 
