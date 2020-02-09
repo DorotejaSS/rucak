@@ -29,8 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'dan',
                 'value' => function($model) {
-                    dump($model->iddana);
-                    die;
+                    return $model->idDana;
                 }
             ],
     

@@ -63,12 +63,11 @@ class GlavnoJelo extends \yii\db\ActiveRecord
 
     public function getIdDana()
     {
-       $glavno_jelo = GlavnoJelo::find()->all();
-       $dan = [];
-       foreach ($glavno_jelo as $key => $value) {
-           $dan[] = $value->dan;
-       }
-       return $dan;
+        if (!empty($this->dan)) {
+           return $this->dan[0]->dan;
+        }
+
+        return 'empty';
     }
 
     /**
