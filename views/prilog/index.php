@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\PrilogSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Prilogs';
+$this->title = 'Prilog';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="prilog-index">

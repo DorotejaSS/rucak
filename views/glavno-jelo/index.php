@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\GlavnoJeloSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Glavno Jelos';
+$this->title = 'Glavno Jelo';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="glavno-jelo-index">
@@ -19,21 +19,19 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+    
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id_glavno_jelo',
+            
             'ime_jela',
-            'nedelja',
-            'dan',
-
+            
+            
             ['class' => 'yii\grid\ActionColumn'],
         ],
-    ]); ?>
+        ]); ?>
 
 
 </div>
