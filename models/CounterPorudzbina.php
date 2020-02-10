@@ -88,10 +88,10 @@ class CounterPorudzbina extends \yii\db\ActiveRecord
         $subQuery = (new Query())->select('COUNT(*)')->from('porudzbina');
        
         $query = Porudzbina::find()
-        ->select(['id_glavno_jelo', 'count' => $subQuery])
+        ->select(['id_glavno_jelo'])    //, 'count' => $subQuery
+        ->from(['porudzbina'])
         ->groupBy(['id_glavno_jelo'])
-        ->all();
-       
+        ->count();
         dd($query);
         //select id_glavno_jelo, count(*) FROM porudzbina GROUP BY id_glavno_jelo;
 
