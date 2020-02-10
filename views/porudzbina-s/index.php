@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\PorudzbinaSSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Porudzbina Ss';
+$this->title = 'Porudzbine';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="porudzbina-s-index">
@@ -24,38 +24,39 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id_porudzbina',
             [
-                'attribute' => 'Glavno jelo',
-                'value' => function($model) {
-                   return $model->glavnoJelo->ime_jela;
-                }
+                'attribute' => 'glavno_jelo',
+                // 'value' => function($model) {
+                //    return $model->glavnoJelo->ime_jela;
+                // }
+                'value' => 'glavnoJelo.ime_jela'
             ],
             [
-                'attribute' => 'Prilog',
+                'attribute' => 'prilog',
                 'value' => function($model) {
                    return $model->prilog->ime_priloga;
                 }
             ],
             [
-                'attribute' => 'Salata',
+                'attribute' => 'salata',
                 'value' => function($model) {
                    return $model->salata->ime_salate;
                 }
             ],
             [
-                'attribute' => 'Hleb',
+                'attribute' => 'hleb',
                 'value' => function($model) {
                    return $model->hleb->ime_hleba;
                 }
             ],
             [
-                'attribute' => 'Cena',
+                'attribute' => 'cena',
                 'value' => function($model) {
                    return $model->cena;
                 }
             ],
             'created_on',
             [
-                'attribute' => 'User',
+                'attribute' => 'user',
                 'value' => function($model) {
                    return $model->id_user;
                 }
