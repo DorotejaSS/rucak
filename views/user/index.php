@@ -40,7 +40,11 @@ $this->params['breadcrumbs'][] = $this->title;
             //'flags',
             //'last_login_at',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                
+            'class' => 'yii\grid\ActionColumn',
+            'template' => '{update}{view}'
+            ],
         ],
     ]); ?>
 
