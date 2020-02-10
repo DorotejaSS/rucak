@@ -15,11 +15,10 @@ class PorudzbinaSSearch extends PorudzbinaS
      * {@inheritdoc}
      */
 
-     public $glavno_jelo;
-     public $prilog;
-     public $salata;
-     public $hleb;
-     public $user;
+    public $glavno_jelo;
+    public $prilog;
+    public $salata;
+    public $user;
 
     public function rules()
     {
@@ -31,7 +30,7 @@ class PorudzbinaSSearch extends PorudzbinaS
                     'integer'
             ],
             [
-                ['glavno_jelo', 'prilog', 'salata', 'hleb'], 'string'
+                ['glavno_jelo', 'prilog', 'salata', 'hleb', 'user'], 'string'
             ],
             [
                 ['cena'], 'number'
@@ -60,7 +59,7 @@ class PorudzbinaSSearch extends PorudzbinaS
      */
     public function search($params)
     {
-        $query = PorudzbinaS::find()->joinWith(['glavnoJelo'])
+        $query = PorudzbinaS::find()->joinWith(['glavnoJelo', 'salata', 'user'])
         ->orderBy(['created_on' => SORT_DESC]);
 
         // add conditions that should always apply here
@@ -71,24 +70,24 @@ class PorudzbinaSSearch extends PorudzbinaS
 
         $this->load($params);
       
-        if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
-            return $dataProvider;
-        }
-
+        // if (!$this->validate()) {
+        //     // uncomment the following line if you do not want to return any records when validation fails
+        //     // $query->where('0=1');
+        //     return $dataProvider;
+        // }
         // grid filtering conditions
         $query->andFilterWhere([
             'id_porudzbina' => $this->id_porudzbina,
             'cena' => $this->cena,
-            'id_user' => $this->id_user,
+            'id_hleb' => $this->id_hleb,
+            'id_prilog' => $this->id_prilog,
         ]);
 
         $query->andFilterWhere(['like', 'created_on', $this->created_on])
             ->andFilterWhere(['like', 'glavno_jelo.ime_jela', $this->glavno_jelo])
-            ->andFilterWhere(['like', 'prilog.ime_priloga', $this->prilog])
+            // ->andFilterWhere(['like', 'prilog.ime_priloga', $this->prilog])
             ->andFilterWhere(['like', 'salata.ime_salate', $this->salata])
-            ->andFilterWhere(['like', 'hleb.ime_hleba', $this->hleb]);
+            ->andFilterWhere(['like', 'user.id_user', $this->user]);
         
         // dd($query->createCommand()->getRawSql());
 

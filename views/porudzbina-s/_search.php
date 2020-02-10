@@ -23,6 +23,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id_salata') ?>
 
+    <?= $form->field($model, 'id_salata') ?>
+
     <?= $form->field($model, 'id_hleb') ?>
 
     <?php // echo $form->field($model, 'cena') ?>

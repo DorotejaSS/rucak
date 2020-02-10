@@ -2,6 +2,11 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\ArrayHelper;
+use app\models\Hleb;
+use app\models\Prilog;
+
+
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\PorudzbinaSSearch */
@@ -32,9 +37,9 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'prilog',
-                'value' => function($model) {
-                   return $model->prilog->ime_priloga;
-                }
+                'value' => 'prilog.ime_priloga',
+                'filter' => Html::activeDropDownList($searchModel, 
+                    'id_prilog', ArrayHelper::map(Prilog::find()->asArray()->all(), 'id_prilog', 'ime_priloga'))
             ],
             [
                 'attribute' => 'salata',
@@ -42,11 +47,12 @@ $this->params['breadcrumbs'][] = $this->title;
                    return $model->salata->ime_salate;
                 }
             ],
+         
             [
                 'attribute' => 'hleb',
-                'value' => function($model) {
-                   return $model->hleb->ime_hleba;
-                }
+                'value' => 'hleb.ime_hleba',
+                'filter' => Html::activeDropDownList($searchModel, 
+                    'id_hleb', ArrayHelper::map(Hleb::find()->asArray()->all(), 'id_hleb', 'ime_hleba'))
             ],
             [
                 'attribute' => 'cena',
