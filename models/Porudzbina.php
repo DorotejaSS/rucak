@@ -25,6 +25,7 @@ use app\models\User;
  */
 class Porudzbina extends \yii\db\ActiveRecord
 {
+    public $brojac;
     /**
      * {@inheritdoc}
      */

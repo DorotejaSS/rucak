@@ -84,17 +84,8 @@ class CounterPorudzbina extends \yii\db\ActiveRecord
      * @return \yii\db\ActiveQuery
      */
     public function getGlavnoJelo()
-    {
-        $subQuery = (new Query())->select('COUNT(*)')->from('porudzbina');
-       
-        $query = Porudzbina::find()
-        ->select(['id_glavno_jelo'])    //, 'count' => $subQuery
-        ->from(['porudzbina'])
-        ->groupBy(['id_glavno_jelo'])
-        ->count();
-        dd($query);
-        //select id_glavno_jelo, count(*) FROM porudzbina GROUP BY id_glavno_jelo;
-
+    {       
+        return $this->hasMany(GlavnoJelo::className(), ['id_glavno_jelo' => 'id_glavo_jelo']);
     }
 
     /**

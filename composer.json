@@ -30,7 +30,9 @@
         "codeception/module-filesystem": "^1.0.0",
         "codeception/module-yii2": "^1.0.0",
         "codeception/module-asserts": "^1.0.0",
-        "symfony/var-dumper": "^5.0"
+        "symfony/var-dumper": "^5.0",
+        "kartik-v/yii2-export": "*",
+        "kartik-v/yii2-mpdf": "*"
 
     },
     "config": {

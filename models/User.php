@@ -82,7 +82,15 @@ class User extends \yii\db\ActiveRecord
      */
     public function getPorudzbinas()
     {
-        return $this->hasMany(Porudzbina::className(), ['id_user' => 'id_user']);
+       $dugovanja = $this->hasMany(Porudzbina::className(), ['id_user' => 'id_user'])->all();
+           
+        $zbir = 0;
+        foreach ($dugovanja as $key => $dug) {
+            if ($dug->cena !== null) {
+                $zbir += $dug->cena;
+            }
+        }
+        return $zbir;
     }
 
     /**

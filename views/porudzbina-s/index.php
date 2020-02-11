@@ -5,6 +5,8 @@ use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
 use app\models\Hleb;
 use app\models\Prilog;
+use kartik\export\ExportMenu;
+
 
 
 
@@ -21,7 +23,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
+ <?php
+    $gridColumns = [
+        'glavnoJelo.ime_jela',
+        'prilog.ime_priloga',
+        'salata.ime_salate',
+        'hleb.ime_hleba',
+        'created_on',
+        'cena',
+        'user.id_user'
+    ];
+
+    echo ExportMenu::widget([
+        'dataProvider' => $dataProvider,
+        'columns' => $gridColumns,
+        'exportConfig' => [
+            ExportMenu::FORMAT_PDF => false
+        ]
+    ]);
+ ?>
     <?= GridView::widget([
+    
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [

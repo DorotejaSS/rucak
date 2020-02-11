@@ -40,7 +40,10 @@ class UserSearch extends User
      */
     public function search($params)
     {
-        $query = User::find();
+        $query = User::find()
+        ->select(['*'])
+        ->from(['porudzbina'])
+        ->innerJoin(['user', 'porudzbina.id_user' => 'user.id_user']);
 
         // add conditions that should always apply here
 

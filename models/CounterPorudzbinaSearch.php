@@ -41,7 +41,15 @@ class CounterPorudzbinaSearch extends CounterPorudzbina
      */
     public function search($params)
     {
-        $query = CounterPorudzbina::find();
+        $query = Porudzbina::find()
+        ->select(
+            [
+                'porudzbina.*',
+                ' count(*) as brojac'
+            ]
+        )  
+        ->from(['porudzbina'])
+        ->groupBy(['id_glavno_jelo']);
         
         // add conditions that should always apply here
 
@@ -58,16 +66,16 @@ class CounterPorudzbinaSearch extends CounterPorudzbina
         }
 
         // grid filtering conditions
-        $query->andFilterWhere([
-            'id_porudzbina' => $this->id_porudzbina,
-            'id_glavno_jelo' => $this->id_glavno_jelo,
-            'id_prilog' => $this->id_prilog,
-            'id_salata' => $this->id_salata,
-            'id_hleb' => $this->id_hleb,
-            'cena' => $this->cena,
-            'created_on' => $this->created_on,
-            'id_user' => $this->id_user,
-        ]);
+        // $query->andFilterWhere([
+        //     'id_porudzbina' => $this->id_porudzbina,
+        //     'id_glavno_jelo' => $this->id_glavno_jelo,
+        //     'id_prilog' => $this->id_prilog,
+        //     'id_salata' => $this->id_salata,
+        //     'id_hleb' => $this->id_hleb,
+        //     'cena' => $this->cena,
+        //     'created_on' => $this->created_on,
+        //     'id_user' => $this->id_user,
+        // ]);
 
         return $dataProvider;
     }

@@ -14,9 +14,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Create Counter Porudzbina', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -24,24 +21,19 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+          
             [
+            'attribute' => 'glavno_jelo',
             'value' => function($model) {
-               $model->glavnoJelo;
-              
-            }
+                return $model->glavnoJelo[0]->ime_jela;
+            },
             ],
-
-            'id_porudzbina',
-            'glavnoJelo.id_glavno_jelo',
-            'id_prilog',
-            'id_salata',
-            'id_hleb',
-            //'cena',
-            //'created_on',
-            //'id_user',
-
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'attribute' => 'brojac',
+                'value' =>function($model) {
+                        return $model->brojac;
+                }
+            ],
         ],
     ]); 
     ?>
