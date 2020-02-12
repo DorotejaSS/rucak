@@ -2,7 +2,7 @@
 
 /* @var $this yii\web\View */
 
-$this->title = 'My Yii Application';
+$this->title = $model->all[0]->naziv;
 ?>
 <div class="site-index">
 

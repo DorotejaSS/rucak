@@ -12,6 +12,7 @@ use app\models\ContactForm;
 use app\models\Porudzbina;
 use app\models\Menu;
 use app\models\MenuSearch;
+use app\models\Kompanija;
 
 class SiteController extends Controller
 {
@@ -65,7 +66,12 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $model = new Kompanija();
+
+        return $this->render('index', [
+            'model' => $model
+        ]);
+            
     }
 
     /**
@@ -125,6 +131,7 @@ class SiteController extends Controller
      */
     public function actionContact()
     {
+        $kompanija = new Kompanija();
         $model = new ContactForm();
         if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
             Yii::$app->session->setFlash('contactFormSubmitted');
@@ -133,6 +140,7 @@ class SiteController extends Controller
         }
         return $this->render('contact', [
             'model' => $model,
+            'kompanija' => $kompanija
         ]);
     }
 
@@ -145,4 +153,5 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
+
 }
